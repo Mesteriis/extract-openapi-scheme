@@ -1,0 +1,219 @@
+[tool.poetry]
+name = "extract-openapi-scheme"
+version = "0.1.0"
+description = ""
+authors = ["Alexander Mescheryakov <avm@sh-inc.ru>"]
+readme = "README.md"
+packages = [
+    { include = "src", from = "." },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.6"
+fastapi = "^0.111.0"
+
+
+[tool.poetry.group.dev.dependencies]
+fastapi = "^0.111.0"
+django = "^5.0.6"
+djangorestframework = "^3.15.2"
+drf-spectacular = "^0.27.2"
+pytest-mock = "^3.14.0"
+pytest = "^8.2.2"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+# ==== pytest ====
+[tool.pytest.ini_options]
+minversion = "6.0"
+pythonpath = "./src"
+python_files = [
+    "tests.py",
+    "test_*.py",
+]
+markers = [
+]
+
+
+# ==== Coverage ====
+[tool.coverage.run]
+include = ["src/**"]
+
+
+# ==== mypy ====
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+
+
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+]
+line-length = 120
+indent-width = 4
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "UP",
+    "YTT",
+    "ASYNC",
+    "S",
+    "BLE",
+    "FBT",
+    "B",
+    "A",
+    "COM",
+    "C4",
+    "DTZ",
+    "T10",
+    "DJ",
+    "EM",
+    "EXE",
+    "FA",
+    'ISC',
+    "ICN",
+    "G",
+    'INP',
+    'PIE',
+    "T20",
+    'PYI',
+    'PT',
+    "Q",
+    "RSE",
+    "RET",
+    "SLF",
+    "SLOT",
+    "SIM",
+    "TID",
+    "TCH",
+    "INT",
+    # "ARG", # Unused function argument
+    "PTH",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    # "NPY",
+    # "AIR",
+    "PERF",
+    # "FURB",
+    # "LOG",
+    "RUF"
+]
+ignore = [
+#    "PLW0127",
+#    "TCH001",
+#    "S101",
+#    "RUF012",
+#    "SIM102",
+#    "F401",
+#    "F405",
+#    "E203",
+#    "E402",
+#    "F811",
+#    "F403",
+#    "ERA001",
+#    "S311",
+#    "INP001", # is part of an implicit namespace package. Add an `__init__.py`.
+#    "RUF003", # Comment contains ambiguous
+#    "FBT003",
+#    "G004", # Logging statement uses f-string
+#    "DJ001", # Avoid using `null=True` on string-based fields such as `CharField`
+#    "RET505", # Unnecessary `else` after `return` statement
+#    "INT001", # f-string is resolved before function call; consider `_("string %s") % arg`
+#    "B904", # Within an `except` clause, raise exceptions with `raise ... from err`
+#    # or `raise ... from None` to distinguish them from errors in exception handling
+#    "TCH002",
+#    "FBT001", # Boolean-typed positional argument in function definition
+#    "PTH123", # `open()` should be replaced by `Path.open()`
+#    "UP031", # Use format specifiers instead of percent format
+#    "SLF001", # Private member accessed
+#    "RET504",
+#    "RUF005",
+#    "SIM108", # Use ternary operator instead of `if` statement
+#    "DJ006", # Do not use `exclude` with `ModelForm`, use `fields` instead
+#    "FBT002", # Boolean default positional argument in function definition
+#    "B007", # Loop control variable `i` not used within loop body
+#    "EM101", # Exception must not use a string literal, assign to variable first
+#    "TRY003", # Avoid specifying long messages outside the exception class
+#    "BLE001", # Do not catch blind exception: `Exception`
+#    "S113", # Probable use of requests call without timeout
+#    "EM102", # Exception must not use an f-string literal, assign to variable first
+#    "PTH110", # `os.path.exists()` should be replaced by `Path.exists()`
+#    "DTZ004", # `datetime.datetime.utcfromtimestamp()` used
+#    "PGH003", # Use specific rule codes when ignoring type issues
+#    "C416", # Unnecessary `dict` comprehension (rewrite using `dict()`)
+#    "PTH118", # `os.path.join()` should be replaced by `Path` with `/` operator
+#    "C419", # Unnecessary list comprehension
+#    "C403", # Unnecessary `list` comprehension (rewrite as a `set` comprehension)
+#    "PT018", # Assertion should be broken down into multiple parts
+#    "PERF203", # `try`-`except` within a loop incurs performance overhead
+#    "PERF401", # Use a list comprehension to create a transformed list
+#    "PLR1714", # Consider merging multiple comparisons. Use a `set` if the elements are hashable.
+#    "RET503", # Missing explicit `return` at the end of function able to return non-`None` value
+#    "SIM117", # Use a single `with` statement with multiple contexts instead of nested `with` statements
+#    "TRY301", # Abstract `raise` to an inner function
+#    "TRY400", # Use `logging.exception` instead of `logging.error`
+#    "N813", # Camelcase `ModelName` imported as lowercase `model_name`
+#    "PLR0913", # Too many arguments in function definition (8 > 5)
+#    "PYI024", # Use `typing.NamedTuple` instead of `collections.namedtuple`
+#    "COM812", # Missing trailing comma
+#    "ISC001", # Use `isinstance()` instead of comparing types directly
+
+]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+# The fixes in extend-unsafe-fixes will require
+# provide the `--unsafe-fixes` flag when fixing.
+extend-unsafe-fixes = [
+#    "UP038"
+]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+force-single-line = false
