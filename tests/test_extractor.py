@@ -40,4 +40,3 @@ def test_extract_scheme(extractor, fastapi_app_path, django_app_path):
     assert openapi_data, "OpenAPI data not extracted."
     assert isinstance(openapi_data, dict), "OpenAPI data is not a dictionary."
     assert "openapi" in openapi_data, "OpenAPI version not found."
-
