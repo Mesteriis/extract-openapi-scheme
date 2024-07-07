@@ -3,6 +3,21 @@ name: Main CI/CD workflow
 on: [push]
 
 jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - uses: pre-commit/action@v3.0.1
+        with:
+          pre-commit_version: latest
+          python_version: python3.10
+          system_site_packages: false
+          environment: poetry
+          install: true
+          install_command: poetry install
+          run: true
+          run_command: poetry run pre-commit run --all-files
   ci:
     runs-on: ubuntu-latest
     steps:
