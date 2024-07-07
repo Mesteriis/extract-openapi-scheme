@@ -9,6 +9,7 @@ def test_find_app_fastapi(extractor, fastapi_app_path):
     assert app is not None, "Application not found."
 
     from fastapi import FastAPI
+
     assert isinstance(app, FastAPI), "Application is not a FastAPI."
 
 
@@ -18,15 +19,13 @@ def test_find_app_django(extractor, django_app_path):
     assert app is not None, "Application not found."
 
     from django.core.handlers.wsgi import WSGIHandler
+
     assert isinstance(app, WSGIHandler), "Application is not a django.WSGIHandler."
 
 
 def test_detect_framework(extractor, fastapi_app_path, django_app_path):
     path, framework = random.choice(
-        [
-            (fastapi_app_path, FrameworkTypeEnum.FASTAPI),
-            (django_app_path, FrameworkTypeEnum.DJANGO)
-        ],
+        [(fastapi_app_path, FrameworkTypeEnum.FASTAPI), (django_app_path, FrameworkTypeEnum.DJANGO)],
     )
     ext = extractor(path)
     ext._detect_framework()

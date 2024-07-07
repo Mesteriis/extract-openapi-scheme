@@ -1,4 +1,4 @@
-exclude: '^tests/'
+exclude: '^tests/|^.github/'
 default_stages: [commit]
 
 default_language_version:
@@ -27,16 +27,6 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --unsafe-fixes]
       - id: ruff-format
-
-  - repo: https://github.com/Mesteriis/extract-openapi-scheme
-    rev: 745766e9bb56106e4ab1b47f44ab8dd92af33ec3
-    hooks:
-      - id: extract-openapi-schema
-        args:
-          - --output
-          - openapi-schema.yaml
-          - --exclude
-          - 'tests/'
 
 ci:
   autoupdate_schedule: weekly
