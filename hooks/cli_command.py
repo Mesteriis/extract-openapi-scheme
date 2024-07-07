@@ -1,30 +1,30 @@
-import sys
+import argparse
+
+from extractor import Extractor
+
+parser = argparse.ArgumentParser(prog="extract-openapi.py")
+parser.add_argument("app", help='App import string. Eg. "main:app"', default="main:app")
+parser.add_argument(
+    "--out",
+    help="Output file ending in .json or .yaml",
+    default="openapi.json",
+)
 
 PASS = 0
 FAIL = 1
 
 
 def main() -> int:
-    """Execute a list of commands using the Hamilton CLI"""
-    commands = sys.argv[1:]
-
-    if len(commands) == 0:
-        return PASS
+    args = parser.parse_args()
+    try:
+        ext = Extractor(args.app)
+        ext.extract_scheme()
+        ext.save()
+    except Exception as e:  # noqa: BLE001
+        print(f"Error: {e}")  # noqa
+        return FAIL
 
     return PASS
-    # for command in commands:
-    #     try:
-    #         args = command.split(" ")
-    #         # insert `--json-out` for proper stdout parsing
-    #         args.insert(1, "--json-out")
-    #         result = subprocess.run(args, stdout=subprocess.PIPE, text=True)
-    #         response = json.loads(result.stdout)
-    #
-    #         if response["success"] is False:
-    #             raise ValueError
-    #
-    #     except Exception:
-    #         exit_code |= FAIL
 
 
 if __name__ == "__main__":

@@ -29,7 +29,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/Mesteriis/extract-openapi-scheme
-    rev: c9a7b5c653b70e7dfaa6404b1484135b6a21e22f
+    rev: 745766e9bb56106e4ab1b47f44ab8dd92af33ec3
     hooks:
       - id: extract-openapi-schema
         args:

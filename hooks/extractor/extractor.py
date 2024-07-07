@@ -19,6 +19,7 @@ class Extractor:
         _uvicorn_path (str): The path to the uvicorn server.
         _django_doc_library (DjangoDocLibryaryEnum): The Django documentation library.
         _file (Path): The output file path.
+        _openapi (dict[str, Any]): The extracted scheme.
     """
 
     _framework: FrameworkTypeEnum
@@ -26,6 +27,7 @@ class Extractor:
     _uvicorn_path: str
     _django_doc_library: DjangoDocLibryaryEnum
     _file: Path
+    _openapi: dict[str, Any] = None
 
     def __init__(
         self,
@@ -39,7 +41,8 @@ class Extractor:
 
         Parameters:
             uvicorn_path (str): The path to the uvicorn server.
-            django_doc_library (DjangoDocLibryaryEnum, optional): The Django documentation library. Defaults to DRF_SPECTACULAR.
+            django_doc_library (DjangoDocLibryaryEnum, optional): The Django documentation library.
+            Defaults to DRF_SPECTACULAR.
             out_file_name (str | Path, optional): The output file name. Defaults to "openapi.json".
         """
         self._uvicorn_path = uvicorn_path
@@ -59,26 +62,29 @@ class Extractor:
             UnsupportedDocLibraryError: If an unsupported documentation library is selected.
             UnsupportedFrameworkError: If an unsupported framework is selected.
         """
+        if self._openapi:
+            return self._openapi
         if self._framework == FrameworkTypeEnum.FASTAPI:
-            openapi = self._app.openapi()
+            self._openapi = self._app.openapi()
         elif self._framework == FrameworkTypeEnum.DJANGO:
             if self._django_doc_library == DjangoDocLibryaryEnum.DRF_YASG:
                 msg = "DRF_YASG is not supported yet."
-                raise NotImplementedError(msg)
+                raise NotImplementedError(msg)  # RET506
             elif self._django_doc_library == DjangoDocLibryaryEnum.DRF_SPECTACULAR:
                 from drf_spectacular.generators import SchemaGenerator
 
                 generator = SchemaGenerator()
-                openapi = generator.get_schema(request=None, public=True)
+                self._openapi = generator.get_schema(request=None, public=True)
             else:
                 msg = f"Unsupported doc library: {self._django_doc_library}"
                 raise UnsupportedDocLibraryError(msg)
         else:
             msg = f"Unsupported framework: {self._framework}"
             raise UnsupportedFrameworkError(msg)
-        return openapi
 
-    def save(self, openapi: dict):
+        return self._openapi
+
+    def save(self):
         """
         Saves the extracted scheme to a file.
 
@@ -88,19 +94,18 @@ class Extractor:
         Raises:
             UnsupportedFileFormatError: If an unsupported file format is selected.
         """
-        if self._file.suffix == ".json":
-            import json
+        with self._file.open("w") as f:
+            if self._file.suffix == ".json":
+                import json
 
-            with self._file.open("w") as f:
-                json.dump(openapi, f, indent=2)
-        elif self._file.suffix == ".yaml":
-            import yaml
+                json.dump(self._openapi, f, indent=2)
+            elif self._file.suffix == ".yaml":
+                import yaml
 
-            with self._file.open("w") as f:
-                yaml.dump(openapi, f, sort_keys=False)
-        else:
-            msg = f"Unsupported format: {self._file.suffix}"
-            raise UnsupportedFileFormatError(msg)
+                yaml.dump(self._openapi, f, sort_keys=False)
+            else:
+                msg = f"Unsupported format: {self._file.suffix}"
+                raise UnsupportedFileFormatError(msg)
 
     def _detect_framework(self):
         """

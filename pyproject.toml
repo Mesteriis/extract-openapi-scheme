@@ -140,64 +140,11 @@ select = [
     "RUF"
 ]
 ignore = [
-#    "PLW0127",
-#    "TCH001",
-#    "S101",
-#    "RUF012",
-#    "SIM102",
-#    "F401",
-#    "F405",
-#    "E203",
-#    "E402",
-#    "F811",
-#    "F403",
-#    "ERA001",
-#    "S311",
-#    "INP001", # is part of an implicit namespace package. Add an `__init__.py`.
-#    "RUF003", # Comment contains ambiguous
-#    "FBT003",
-#    "G004", # Logging statement uses f-string
-#    "DJ001", # Avoid using `null=True` on string-based fields such as `CharField`
-#    "RET505", # Unnecessary `else` after `return` statement
-#    "INT001", # f-string is resolved before function call; consider `_("string %s") % arg`
-#    "B904", # Within an `except` clause, raise exceptions with `raise ... from err`
-#    # or `raise ... from None` to distinguish them from errors in exception handling
-#    "TCH002",
-#    "FBT001", # Boolean-typed positional argument in function definition
-#    "PTH123", # `open()` should be replaced by `Path.open()`
-#    "UP031", # Use format specifiers instead of percent format
-#    "SLF001", # Private member accessed
-#    "RET504",
-#    "RUF005",
-#    "SIM108", # Use ternary operator instead of `if` statement
-#    "DJ006", # Do not use `exclude` with `ModelForm`, use `fields` instead
-#    "FBT002", # Boolean default positional argument in function definition
-#    "B007", # Loop control variable `i` not used within loop body
-#    "EM101", # Exception must not use a string literal, assign to variable first
-#    "TRY003", # Avoid specifying long messages outside the exception class
-#    "BLE001", # Do not catch blind exception: `Exception`
-#    "S113", # Probable use of requests call without timeout
-#    "EM102", # Exception must not use an f-string literal, assign to variable first
-#    "PTH110", # `os.path.exists()` should be replaced by `Path.exists()`
-#    "DTZ004", # `datetime.datetime.utcfromtimestamp()` used
-#    "PGH003", # Use specific rule codes when ignoring type issues
-#    "C416", # Unnecessary `dict` comprehension (rewrite using `dict()`)
-#    "PTH118", # `os.path.join()` should be replaced by `Path` with `/` operator
-#    "C419", # Unnecessary list comprehension
-#    "C403", # Unnecessary `list` comprehension (rewrite as a `set` comprehension)
-#    "PT018", # Assertion should be broken down into multiple parts
-#    "PERF203", # `try`-`except` within a loop incurs performance overhead
-#    "PERF401", # Use a list comprehension to create a transformed list
-#    "PLR1714", # Consider merging multiple comparisons. Use a `set` if the elements are hashable.
-#    "RET503", # Missing explicit `return` at the end of function able to return non-`None` value
-#    "SIM117", # Use a single `with` statement with multiple contexts instead of nested `with` statements
-#    "TRY301", # Abstract `raise` to an inner function
-#    "TRY400", # Use `logging.exception` instead of `logging.error`
-#    "N813", # Camelcase `ModelName` imported as lowercase `model_name`
-#    "PLR0913", # Too many arguments in function definition (8 > 5)
-#    "PYI024", # Use `typing.NamedTuple` instead of `collections.namedtuple`
-#    "COM812", # Missing trailing comma
-#    "ISC001", # Use `isinstance()` instead of comparing types directly
+    "PGH004", # Use specific rule codes when using `noqa`
+    "RET506", # Unnecessary `elif` after `raise` statement
+    "COM812", # Missing trailing comma
+    "ISC001"  # Use `is` or `is not` to compare with `None`
+
 
 ]
 # Allow fix for all enabled rules (when `--fix`) is provided.
@@ -206,7 +153,7 @@ unfixable = []
 # The fixes in extend-unsafe-fixes will require
 # provide the `--unsafe-fixes` flag when fixing.
 extend-unsafe-fixes = [
-#    "UP038"
+    #    "UP038"
 ]
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
