@@ -28,7 +28,8 @@ repos:
         args: [--fix, --exit-non-zero-on-fix, --unsafe-fixes]
       - id: ruff-format
 
-  - repo: ../extract-openapi-schema
+  - repo: https://github.com/Mesteriis/extract-openapi-scheme
+    rev: c7399985b301359d932d8d2d9b40fa7e3446c533
     hooks:
       - id: extract-openapi-schema
         args:
