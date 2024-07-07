@@ -27,6 +27,8 @@ pre-commit = "^3.7.1"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[project.scripts]
+extract-openapi-schema = "hooks.cli_command:main"
 
 # ==== pytest ====
 [tool.pytest.ini_options]

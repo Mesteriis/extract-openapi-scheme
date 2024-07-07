@@ -1,0 +1,8 @@
+- id: extract-openapi-schema
+  name: Extracted OpenAPI schema
+  description: This hook extract the OpenAPI schema from Django or FastAPI projects
+  entry: extract-openapi-schema
+  language: python
+  types: [python]
+  stages: [pre-commit, pre-merge-commit, manual]
+  pass_filenames: false
