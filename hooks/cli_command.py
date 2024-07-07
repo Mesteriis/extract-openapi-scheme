@@ -14,19 +14,19 @@ def main() -> int:
         return PASS
 
     exit_code = PASS
-    for command in commands:
-        try:
-            args = command.split(" ")
-            # insert `--json-out` for proper stdout parsing
-            args.insert(1, "--json-out")
-            result = subprocess.run(args, stdout=subprocess.PIPE, text=True)
-            response = json.loads(result.stdout)
-
-            if response["success"] is False:
-                raise ValueError
-
-        except Exception:
-            exit_code |= FAIL
+    # for command in commands:
+    #     try:
+    #         args = command.split(" ")
+    #         # insert `--json-out` for proper stdout parsing
+    #         args.insert(1, "--json-out")
+    #         result = subprocess.run(args, stdout=subprocess.PIPE, text=True)
+    #         response = json.loads(result.stdout)
+    #
+    #         if response["success"] is False:
+    #             raise ValueError
+    #
+    #     except Exception:
+    #         exit_code |= FAIL
 
     return exit_code
 

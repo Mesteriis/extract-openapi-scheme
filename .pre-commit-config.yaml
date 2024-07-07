@@ -28,6 +28,15 @@ repos:
         args: [--fix, --exit-non-zero-on-fix, --unsafe-fixes]
       - id: ruff-format
 
+  - repo: ../extract-openapi-schema
+    hooks:
+      - id: extract-openapi-schema
+        args:
+            - --output
+            - openapi-schema.yaml
+            - --exclude
+            - 'tests/'
+
 ci:
   autoupdate_schedule: weekly
   skip: []
