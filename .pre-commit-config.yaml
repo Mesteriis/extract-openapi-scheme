@@ -29,14 +29,14 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/Mesteriis/extract-openapi-scheme
-    rev: ffd3bc84786744f9a4a6f3d199349aab1cd0351b
+    rev: c9a7b5c653b70e7dfaa6404b1484135b6a21e22f
     hooks:
       - id: extract-openapi-schema
         args:
-            - --output
-            - openapi-schema.yaml
-            - --exclude
-            - 'tests/'
+          - --output
+          - openapi-schema.yaml
+          - --exclude
+          - 'tests/'
 
 ci:
   autoupdate_schedule: weekly

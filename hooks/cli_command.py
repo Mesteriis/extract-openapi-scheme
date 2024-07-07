@@ -1,6 +1,4 @@
 import sys
-import json
-import subprocess
 
 PASS = 0
 FAIL = 1
@@ -13,7 +11,7 @@ def main() -> int:
     if len(commands) == 0:
         return PASS
 
-    exit_code = PASS
+    return PASS
     # for command in commands:
     #     try:
     #         args = command.split(" ")
@@ -27,8 +25,6 @@ def main() -> int:
     #
     #     except Exception:
     #         exit_code |= FAIL
-
-    return exit_code
 
 
 if __name__ == "__main__":
