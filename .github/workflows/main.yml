@@ -37,7 +37,7 @@ jobs:
         run: poetry run pytest -v
       - name: Build coverage file
         run: |
-          pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered | tee pytest-coverage.txt
+          pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered
 
   coverage:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
       - name: Get Cover
         uses: orgoro/coverage@v3.1
         with:
-          coverageFile: path/to/coverage.xml
+          coverageFile: pytest.xml
           token: ${{ secrets.GITHUB_TOKEN }}
 #      - uses: actions/checkout@v4
 #        with:
