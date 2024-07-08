@@ -33,7 +33,6 @@ jobs:
       - name: Build coverage file
         run: |
           pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest-coverage.txt
-            sed -n 's/^TOTAL.* \([0-9]\+\)%/\1/p' pytest-coverage.txt > ./data/pytest-coverage_4.txt
 
   coverage:
     runs-on: ubuntu-latest
@@ -52,7 +51,7 @@ jobs:
         uses: MishaKav/pytest-coverage-comment@main
         with:
           hide-comment: true
-          pytest-coverage-path: ./data/pytest-coverage_4.txt
+          pytest-coverage-path: pytest-coverage.txt
 
       - name: Update Readme with Coverage Html
         if: ${{ github.ref == 'refs/heads/main' }}
